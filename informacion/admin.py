@@ -65,8 +65,8 @@ class activoAdmin(admin.ModelAdmin):
     list_display = ('activo', 'tipo', \
         'propietario', 'responsable', \
         'confidencialidad', 'integridad', 'disponibilidad')
-    search_fields = ('activo', 'propietario')
-    list_filter = ('area', 'ubicacion', 'responsable', 'tipo')
+    search_fields = ('activo', 'propietario__cargo')
+    list_filter = ('area', 'ubicacion', 'propietario', 'responsable', 'tipo')
     actions = [
         export_csv_action("Export Sepecial Report",
             fields=[
