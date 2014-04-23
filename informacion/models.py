@@ -57,7 +57,7 @@ class datacenter(models.Model):
 
 
 class activo(models.Model):
-    activo = models.CharField(max_length=30)
+    activo = models.CharField(max_length=100)
     descripcion = models.TextField(null=True, blank=True)
     tipo = models.ForeignKey(tipo)
     ubicacion = models.ManyToManyField(datacenter)
