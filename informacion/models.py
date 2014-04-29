@@ -15,7 +15,7 @@ class area(models.Model):
     descripcion = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
-        return unicode(self.nombre)
+        return str(self.nombre)
 
 
 class usuario(models.Model):
@@ -24,7 +24,7 @@ class usuario(models.Model):
     area = models.ForeignKey(area)
 
     def __unicode__(self):
-        return unicode(self.cargo)
+        return str(self.cargo)
 niveles = (
            (0, "0"),
            (1, "1"),
@@ -53,7 +53,7 @@ class datacenter(models.Model):
     descripcion = models.CharField(max_length=10, choices=datacenters)
 
     def __unicode__(self):
-        return unicode(self.descripcion)
+        return str(self.descripcion)
 
 
 class activo(models.Model):

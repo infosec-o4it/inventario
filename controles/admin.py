@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Metodologia, Dominio, Control, Registro, Grado, Madurez
+from .models import Metodologia, Dominio, Control, Registro, Grado, Madurez
 
 
 # Register your models here.
@@ -17,7 +17,7 @@ class ControlAdmin(admin.ModelAdmin):
 
 
 class RegistroAdmin(admin.ModelAdmin):
-    list_display = ('control', 'fecha')
+    list_display = ('control', 'fecha', 'resultado')
 
 
 class GradoAdmin(admin.ModelAdmin):

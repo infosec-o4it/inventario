@@ -6,7 +6,7 @@ class Metodologia(models.Model):
     nombre = models.CharField(max_length=10)
 
     def __unicode__(self):
-        return unicode(self.nombre)
+        return str(self.nombre)
 
 
 class Dominio(models.Model):
@@ -14,7 +14,7 @@ class Dominio(models.Model):
     metodologia = models.ForeignKey(Metodologia)
 
     def __unicode__(self):
-        return unicode(self.nombre + " " + str(self.metodologia))
+        return str(self.nombre + " " + str(self.metodologia))
 
 
 class Control(models.Model):
@@ -26,7 +26,7 @@ class Control(models.Model):
         verbose_name_plural = "controles"
 
     def __unicode__(self):
-        return unicode(self.nombre + " " + str(self.dominio))
+        return str(self.nombre + " " + str(self.dominio))
 
 
 class Registro(models.Model):
@@ -36,14 +36,14 @@ class Registro(models.Model):
     #soporte = models.FileField(null=True, blank=True)
 
     def __unicode__(self):
-        return unicode(str(self.control) + " " + str(self.fecha))
+        return str(str(self.control) + " " + str(self.fecha))
 
 
 class Grado(models.Model):
     nombre = models.CharField(max_length=60)
 
     def __unicode__(self):
-        return unicode(self.nombre)
+        return str(self.nombre)
 
 
 class Madurez(models.Model):
@@ -55,5 +55,6 @@ class Madurez(models.Model):
         verbose_name_plural = "niveles de madurez"
 
     def __unicode__(self):
-        return unicode(str(self.grado) + " " + str(self.fecha) + " " + str(self.registro))
+        return str(str(self.grado) + " " + str(self.fecha) + " " +
+        str(self.registro))
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import tipo, activo, area, usuario, niveles_acceso, datacenter
+from .models import tipo, activo, area, usuario, niveles_acceso, datacenter
 from django.http import HttpResponse
 
 import csv
@@ -24,7 +24,7 @@ def prep_field(obj, field):
     return unicode(output).encode('utf-8') if output else ""
 
 
-def export_csv_action(description="Export as CSV", \
+def export_csv_action(description="Export as CSV",
                       fields=None, exclude=None, header=True):
     """ This function returns an export csv action. """
     def export_as_csv(modeladmin, request, queryset):
@@ -62,8 +62,8 @@ def export_csv_action(description="Export as CSV", \
 
 
 class activoAdmin(admin.ModelAdmin):
-    list_display = ('activo', 'tipo', \
-        'propietario', 'responsable', \
+    list_display = ('activo', 'tipo',
+        'propietario', 'responsable',
         'confidencialidad', 'integridad', 'disponibilidad')
     search_fields = ('activo', 'propietario__cargo')
     list_filter = ('area', 'ubicacion', 'propietario', 'responsable', 'tipo')
