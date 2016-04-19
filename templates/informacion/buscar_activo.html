@@ -1,0 +1,37 @@
+{% extends "informacion/base.html" %}
+{% block header %}
+    <h4>Formulario de Busqueda de Activos de Información</h4>
+{% endblock %}
+{% block content %}
+    {% if form %}
+        <form action="/informacion/buscar/" method="post" class="bootstrap-frm">{% csrf_token %}
+            <table>
+            {{form.as_table}}
+            </table>
+            <input type="submit" value="Buscar">
+        </form>
+    {% endif %}
+    {% if busqueda %}<div class="container-fluid">
+      <ul class="list-group">{% for elemento in busqueda %}
+        <li class="list-group-item"><div class="container"><h3>{{ elemento }}</h3>
+          <h5>Amenazas :{%if not elemento.Amenazas.all %}
+            Ninguna Amenaza Registrada.
+          {% else %}
+            <ul class="list-group">{% for amenaza in elemento.Amenazas.all %}
+              <li class="list-group-item">{{amenaza}}</li>
+            {% endfor %}</ul>
+          {%endif%}</h5>
+            <h5>Vulnerabilidades :{% if not elemento.Vulnerabilidades.all %}
+            Ninguna vulnerabilidad Registrada.
+            {%else%}
+              <ul class="list-group">{%for vulnerabilidad in elemento.Vulnerabilidades.all %}
+                <li class="list-group-item">{{vulnerabilidad}}</li>
+              {%endfor%}</ul>
+            {%endif%}</h5></li>
+      {% endfor %}</div></li>
+    </div><ul>{% endif %}
+    <a href="/informacion/buscar">volver</a>
+
+
+
+{% endblock %}

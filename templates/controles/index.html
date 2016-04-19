@@ -1,0 +1,75 @@
+{% extends "controles/base.html" %}
+{% block header %}
+        <canvas id="torta" width="180" height="180"></canvas>
+{% endblock %}
+{% block content %}
+</div>
+
+<div class="table-responsive">
+        {% if latest_control_list %}
+        <table class="table table-striped">
+          <thead> 
+	      <tr>
+		<th>Metodologia</th>
+		<th>Dominio</th>
+		<th>Control</th>
+		<th>Registros</th>
+	      </tr>
+           </thead>
+           
+		 {% for control in latest_control_list %}
+                <tr>
+                	<td><a href="/admin/controles/metodologia/{{ control.dominio.metodologia.id }}"> {{ control.dominio.metodologia.nombre }}</a></td>
+               		 <td><a href="/admin/controles/dominio/{{ control.dominio.id }}">{{ control.dominio.nombre }}</a></td>
+               		 <td><a href="/admin/controles/control/{{ control.id }}">{{ control.nombre }}</a></td>
+                <td>
+                    <table width="100%">
+                        {% for registro in control.registro_set.all %}
+                        <tr>
+                            <td><a href="/admin/controles/registro/{{ registro.id }}">{{ registro.resultado }}</a>: {{ registro.fecha }}</td>
+                            {% for madurez in registro.madurez_set.all %}
+                                <td class="celda_niveles"><a href="/admin/controles/madurez/{{ madurez.id }}/"><b>{{ madurez.grado }} </b></a></td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+		</td>
+            	</tr>
+            {% endfor %}
+        </table>
+        <script>
+        var torta = document.getElementById("torta").getContext("2d");
+        var data = [
+        {% for numero in porcentajes_madurez %}
+            {
+                labelAlign: "center",
+                {% if numero == "Inicial"%}
+                label: "{{ numero }}",
+                value: {{ porcentajes_madurez.Inicial|stringformat:"f"}},
+                color: "#CC0006"
+                {% elif numero == "Repetible"%}
+                label: "{{ numero }}",
+                value: {{ porcentajes_madurez.Repetible|stringformat:"f" }},
+                color: "#F73C00"
+                {% elif numero == "Definido"%}
+                label: "{{ numero }}",
+                value: {{ porcentajes_madurez.Definido|stringformat:"f" }},
+                color: "#FFD300"
+                {% elif numero == "Gestionado"%}
+                label: "{{ numero }}",
+                value: {{ porcentajes_madurez.Gestionado|stringformat:"f" }},
+                color: "#007590"
+                {% elif numero == "Optimizado"%}
+                label: "{{ numero }}",
+                value: {{ porcentajes_madurez.Optimizado|stringformat:"f" }},
+                color: "#31CC00"
+                {% endif %}
+            },
+        {% endfor %}
+        ]
+        new Chart(torta).Pie(data);
+        </script>
+    {% else %}
+    <p>No hay controles disponibles</p>
+    {% endif %}
+{% endblock %}

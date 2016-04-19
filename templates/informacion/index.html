@@ -1,0 +1,17 @@
+{% extends "informacion/base.html" %}
+{% block header %}
+    <h4>Formulario de Ingreso de Activos de Información</h4>
+{% endblock %}
+{% block content %}
+    {% if form %}
+        <form action="/informacion/" method="post" class="bootstrap-frm">{% csrf_token %}
+            <table>
+            {{form.as_table}}
+            </table>
+            <input type="submit" value="Guardar">
+        </form>
+    {% endif %}
+
+
+
+{% endblock %}

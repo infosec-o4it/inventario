@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from informacion.models import usuario
 # Create your models here.
@@ -11,7 +12,7 @@ class seccion(models.Model):
         verbose_name_plural = "secciones"
 
     def __unicode__(self):
-        return str(self.codigo.encode("utf8"))
+        return u'%s' % (self.codigo.encode("utf8"))
 
 
 class control(models.Model):
@@ -23,7 +24,7 @@ class control(models.Model):
         verbose_name_plural = "controles"
 
     def __unicode__(self):
-        return str(str(self.seccion) + self.codigo)
+        return u'%s.%s' % (self.seccion, self.codigo)
 
 
 class numeral(models.Model):
@@ -35,7 +36,7 @@ class numeral(models.Model):
         verbose_name_plural = "numerales"
 
     def __unicode__(self):
-        return str(str(self.control) + self.codigo)
+        return u'%s.%s' % (self.control, self.codigo)
 
 
 class punto(models.Model):
@@ -43,7 +44,7 @@ class punto(models.Model):
     pregunta = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
-        return str(str(self.numeral) + " " + self.pregunta[:35])
+        return u'%s - %s' % (self.numeral, self.pregunta[:35])
 nivel = (
     (0, "0"),
     (1, "1"),
@@ -60,7 +61,7 @@ class hallazgo(models.Model):
     usuario = models.ForeignKey(usuario)
     descripcion = models.TextField(null=True, blank=True)
     fecha = models.DateField()
-    nota = models.IntegerField(max_length=1, choices=nivel)
+    nota = models.IntegerField(choices=nivel)
 
     def __unicode__(self):
-        return str(str(self.punto) + self.resumen)
+        return u'%s - respuesta: %s' % (self.punto, self.resumen)

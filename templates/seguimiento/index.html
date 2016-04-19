@@ -1,0 +1,61 @@
+{% extends "seguimiento/base.html" %}
+{% block header %}
+        <canvas id="barra_seccion" width="500" height="600"></canvas>
+        <canvas id="barra_control" width="500" height="300"></canvas>
+{% endblock %}
+{% block content %}
+    {% if latest_seccion_list %}
+        {% for numeral, valor in porcentajes_numeral.items %}
+            <br>
+            {{numeral}} --- {{valor}}
+        {% endfor %}
+        <br>***
+        {{ porcentajes_numeral.items }}
+        <br>***
+    {% else %}
+    <p>No hay controles disponibles</p>
+    {% endif %}
+    {% load misc_tags %}
+<script>
+var barra_seccion = document.getElementById("barra_seccion").getContext("2d");
+var data = {
+    labels: [{% for nombre in porcentajes_numeral %}{% spaceless %}"{{ nombre|remove_newlines }}",{% endspaceless %}{% endfor %}],
+    datasets: [
+        {
+        label: "Nivel de cumplimiento por seccion",
+        fillColor: "rgba(14,255,0,0.8)",
+        strokeColor: "rgba(117,42,42,0.47)",
+        highlightFill: "rgba(117,42,42,0.47)",
+        highlightStroke: "rgba(117,42,42,0.47)",
+        data: [{% for nombre, valor in porcentajes_numeral.items %}{{valor|stringformat:"f"}},{% endfor %}]
+        }
+    ]
+};
+new Chart(barra_seccion).Bar(data, {
+    scaleBeginAtZero : true,
+    scaleShowGridLines : true,
+    });
+</script>
+<script>
+var barra_control = document.getElementById("barra_control").getContext("2d");
+var data2 = {
+    labels: [{% for nombre in porcentajes_seccion_list %}{% spaceless %}"{{ nombre|remove_newlines }}",{% endspaceless %}{% endfor %}],
+    datasets: [
+        {
+        label: "Nivel de cumplimiento por control",
+        fillColor: "rgba(14,255,0,0.8)",
+        strokeColor: "rgba(117,42,42,0.47)",
+        highlightFill: "rgba(117,42,42,0.47)",
+        highlightStroke: "rgba(117,42,42,0.47)",
+        data: [{% for nombre, valor in porcentajes_seccion_list.items %}{{valor|stringformat:"f"}},{% endfor %}]
+        }
+    ]
+};
+new Chart(barra_control).Bar(data2, {
+    scaleBeginAtZero : true,
+    scaleShowGridLines : true,
+    });
+</script>
+
+
+{% endblock %}

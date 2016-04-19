@@ -26,14 +26,14 @@ class Control(models.Model):
         verbose_name_plural = "controles"
 
     def __unicode__(self):
-        return str(self.nombre + " " + str(self.dominio))
+        return str(self.nombre.encode("utf8") + " " + str(self.dominio))
 
 
 class Registro(models.Model):
     control = models.ForeignKey(Control)
     fecha = models.DateField()
     resultado = models.TextField(null=True, blank=True)
-    #soporte = models.FileField(null=True, blank=True)
+    # soporte = models.FileField(null=True, blank=True)
 
     def __unicode__(self):
         return str(str(self.control) + " " + str(self.fecha))
@@ -55,6 +55,10 @@ class Madurez(models.Model):
         verbose_name_plural = "niveles de madurez"
 
     def __unicode__(self):
-        return str(str(self.grado) + " " + str(self.fecha) + " " +
-        str(self.registro))
-
+        return str(
+            str(self.grado) +
+            " " +
+            str(self.fecha) +
+            " " +
+            str(self.registro)
+        )

@@ -5,7 +5,7 @@ from .models import Metodologia, Dominio, Control, Registro, Grado, Madurez
 # Register your models here.
 class MetodologiaAdmin(admin.ModelAdmin):
     pass
-    #list_display = ('nombre',)
+    # list_display = ('nombre',)
 
 
 class DominioAdmin(admin.ModelAdmin):
@@ -22,7 +22,7 @@ class RegistroAdmin(admin.ModelAdmin):
 
 class GradoAdmin(admin.ModelAdmin):
     pass
-#list_display = ('nombre',)
+    # list_display = ('nombre',)
 
 
 class MadurezAdmin(admin.ModelAdmin):
@@ -35,4 +35,3 @@ admin.site.register(Control, ControlAdmin)
 admin.site.register(Registro, RegistroAdmin)
 admin.site.register(Grado, GradoAdmin)
 admin.site.register(Madurez, MadurezAdmin)
-
